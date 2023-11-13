@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import MapView from 'react-native-maps'
 
 export default function App() {
@@ -8,12 +8,12 @@ export default function App() {
       <MapView
         provider="google"
         style={{
-          width: 400,
-          height: 400,
+          width: '100%',
+          height: '100%',
         }}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: 41.38333,
+          longitude: 22.68361,
           latitudeDelta: 0.222,
           longitudeDelta: 0.0421,
         }}
