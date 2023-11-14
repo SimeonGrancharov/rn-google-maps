@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PinT } from '../types/Pin'
-import { fetchPins } from '../thunks/fetchPins'
 import { RegionT } from '../types/Region'
 
 type StateT = {
@@ -45,9 +44,26 @@ export const pinsSlice = createSlice({
         action.payload.longitude + action.payload.longitudeDelta / 2
 
       for (const pin of Object.values(state.pinsById)) {
+        let pinFitsHorizontally: boolean = false
+
+        // Then we are on the time change line with E -> W
+        if (leftLng <= 180 && rightLng >= 180) {
+          pinFitsHorizontally =
+            pin.longitude > 0
+              ? pin.longitude >= leftLng
+              : pin.longitude <= 360 - rightLng
+        } else if (leftLng <= -180 && rightLng >= -180) {
+          pinFitsHorizontally =
+            pin.longitude > 0
+              ? pin.longitude >= 360 + leftLng
+              : pin.longitude <= rightLng
+        } else {
+          pinFitsHorizontally =
+            pin.longitude <= rightLng && pin.longitude >= leftLng
+        }
+
         if (
-          pin.longitude <= rightLng &&
-          pin.longitude >= leftLng &&
+          pinFitsHorizontally &&
           pin.latitude >= bottomLat &&
           pin.latitude <= topLat
         ) {
