@@ -1,7 +1,7 @@
 import { ReactNode, useMemo, useState } from 'react'
 import { PinT } from '../types/Pin'
 import { Context, ContextT } from '../context/PinModalContext'
-import { View, Text, Pressable, StyleSheet } from 'react-native'
+import { View, Text, Pressable, StyleSheet, SafeAreaView } from 'react-native'
 import { useReduxStore } from '../hooks/useReduxStore'
 import Animated, {
   FadeIn,
@@ -9,6 +9,7 @@ import Animated, {
   SlideInDown,
   SlideOutDown
 } from 'react-native-reanimated'
+import { PinModalContent } from './PinModalContent'
 
 type PropsT = {
   children: ReactNode
@@ -46,7 +47,7 @@ export const PinBottomSheetProvider = (props: PropsT) => {
             onPress={() => setOpenedModalId(undefined)}
             style={{
               ...StyleSheet.absoluteFillObject,
-              backgroundColor: 'rgba(0,0,0,0.3)'
+              backgroundColor: 'rgba(0,0,0,0.5)'
             }}
           />
           <Animated.View
@@ -60,10 +61,11 @@ export const PinBottomSheetProvider = (props: PropsT) => {
               backgroundColor: 'white',
               borderTopRightRadius: 20,
               borderTopLeftRadius: 20,
-              padding: 50
+              paddingHorizontal: 15,
+              paddingVertical: 20
             }}
           >
-            <Text>{pin._id}</Text>
+            <PinModalContent pin={pin} />
           </Animated.View>
         </>
       ) : null}

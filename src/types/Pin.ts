@@ -5,9 +5,9 @@ const ConnectorSchema = z.object({
     z.literal('Type 2'),
     z.literal(' Type 3'),
     z.literal('J1772'),
-    z.literal('CCS 2'),
+    z.literal('CCS 2')
   ]),
-  status: z.union([z.literal('available'), z.literal('unavailable')]),
+  status: z.union([z.literal('available'), z.literal('unavailable')])
 })
 
 const PinSchema = z.object({
@@ -15,7 +15,8 @@ const PinSchema = z.object({
   title: z.string(),
   latitude: z.number(),
   longitude: z.number(),
-  connectors: z.array(ConnectorSchema),
+  connectors: z.array(ConnectorSchema)
 })
 
 export type PinT = z.TypeOf<typeof PinSchema>
+export type ConnectorT = z.TypeOf<typeof ConnectorSchema>
