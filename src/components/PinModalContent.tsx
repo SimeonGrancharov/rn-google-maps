@@ -78,6 +78,7 @@ export const PinModalContent = (props: PropsT) => {
         >
           {props.pin.connectors.map((connector, idx) => (
             <View
+              key={idx}
               style={{
                 flexDirection: 'row',
                 justifyContent: 'flex-start',

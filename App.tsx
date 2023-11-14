@@ -3,17 +3,37 @@ import { Map } from './src/components/Map'
 import { StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchPins } from './src/thunks/fetchPins'
 import { store } from './src/stores/store'
 import { useAppDispatch } from './src/hooks/useAppDispatch'
 import { useFonts } from 'expo-font'
 import { PinBottomSheetProvider } from './src/components/PinBottomSheetProvider'
+import { useReduxStore } from './src/hooks/useReduxStore'
+import { pinsSlice } from './src/reducers/pins'
+import { PinT } from './src/types/Pin'
 
 const EntryApp = () => {
   const dispatch = useAppDispatch()
+  const pinsDataState = useReduxStore((state) => state.pins.dataState)
+
+  const fetchPins = async () => {
+    try {
+      const data = await fetch('http://localhost:3000/pins', {
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+      const pins = (await data.json()) as PinT[]
+
+      dispatch(pinsSlice.actions.setPins(pins))
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
-    dispatch(fetchPins())
+    if (pinsDataState === undefined) {
+      fetchPins()
+    }
   }, [])
 
   return (

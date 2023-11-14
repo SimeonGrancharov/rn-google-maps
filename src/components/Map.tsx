@@ -49,8 +49,8 @@ export const Map = () => {
           height: '100%'
         }}
         initialRegion={initialRegion}
-        zoomEnabled
-        zoomControlEnabled
+        zoomEnabled={false}
+        zoomControlEnabled={false}
         onRegionChange={changeVisiblePins}
         pitchEnabled={false}
         ref={(r) => (mapRef.current = r)}

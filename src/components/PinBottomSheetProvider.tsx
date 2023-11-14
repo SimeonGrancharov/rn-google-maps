@@ -1,7 +1,7 @@
-import { ReactNode, useMemo, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { PinT } from '../types/Pin'
 import { Context, ContextT } from '../context/PinModalContext'
-import { View, Text, Pressable, StyleSheet, SafeAreaView } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
 import { useReduxStore } from '../hooks/useReduxStore'
 import Animated, {
   FadeIn,
@@ -25,6 +25,9 @@ export const PinBottomSheetProvider = (props: PropsT) => {
   const pin = useReduxStore((state) =>
     openedModalId ? state.pins.pinsById[openedModalId] : undefined
   )
+  useEffect(() => {
+    console.log('unmount')
+  }, [])
 
   const contextValue = useMemo<ContextT>(
     () => ({
@@ -36,10 +39,10 @@ export const PinBottomSheetProvider = (props: PropsT) => {
   )
 
   return (
-    <Context.Provider value={contextValue}>
-      {props.children}
+    <>
+      <Context.Provider value={contextValue}>{props.children}</Context.Provider>
 
-      {pin ? (
+      {pin && (
         <>
           <AnimatedPressable
             entering={FadeIn}
@@ -52,23 +55,25 @@ export const PinBottomSheetProvider = (props: PropsT) => {
           />
           <Animated.View
             entering={SlideInDown}
-            exiting={SlideOutDown}
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              backgroundColor: 'white',
-              borderTopRightRadius: 20,
-              borderTopLeftRadius: 20,
-              paddingHorizontal: 15,
-              paddingVertical: 20
-            }}
+            exiting={SlideOutDown.duration(2000)}
+            style={styles.bottomSheet}
           >
             <PinModalContent pin={pin} />
           </Animated.View>
         </>
-      ) : null}
-    </Context.Provider>
+      )}
+    </>
   )
 }
+const styles = StyleSheet.create({
+  bottomSheet: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: 'white',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 20
+  }
+})
