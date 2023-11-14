@@ -6,6 +6,7 @@ import { pinsSlice } from '../reducers/pins'
 import { RegionT } from '../types/Region'
 import { useReduxStore } from '../hooks/useReduxStore'
 import { ZoomInOutButtons } from './ZoomInOutButtons'
+import { throttle } from 'lodash'
 import { useOpenPinInfo } from '../hooks/useOpenPinInfo'
 
 const initialRegion: RegionT = {
@@ -26,9 +27,12 @@ export const Map = () => {
     changeVisiblePins(initialRegion)
   }, [pinsById])
 
-  const changeVisiblePins = useCallback((region: RegionT) => {
-    dispatch(pinsSlice.actions.changeVisiblePins(region))
-  }, [])
+  const changeVisiblePins = useCallback(
+    throttle((region: RegionT) => {
+      dispatch(pinsSlice.actions.changeVisiblePins(region))
+    }, 200),
+    []
+  )
 
   const zoomInOut = useCallback((direction: 'in' | 'out') => {
     mapRef.current?.getCamera().then((cam: Camera) => {

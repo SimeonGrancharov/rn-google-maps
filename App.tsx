@@ -13,7 +13,7 @@ import { PinT } from './src/types/Pin'
 
 const EntryApp = () => {
   const dispatch = useAppDispatch()
-  const pinsDataState = useReduxStore((state) => state.pins.dataState)
+  const pinsById = useReduxStore((state) => state.pins.pinsById)
 
   const fetchPins = async () => {
     try {
@@ -31,7 +31,7 @@ const EntryApp = () => {
   }
 
   useEffect(() => {
-    if (pinsDataState === undefined) {
+    if (Object.values(pinsById).length === 0) {
       fetchPins()
     }
   }, [])

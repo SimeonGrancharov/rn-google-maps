@@ -3,13 +3,11 @@ import { PinT } from '../types/Pin'
 import { RegionT } from '../types/Region'
 
 type StateT = {
-  dataState: 'success' | 'loading' | 'error' | undefined
   pinsById: Record<PinT['_id'], PinT>
   visiblePins: PinT['_id'][]
 }
 
 const initialState: StateT = {
-  dataState: undefined,
   pinsById: {},
   visiblePins: []
 }
@@ -29,8 +27,6 @@ export const pinsSlice = createSlice({
         },
         {} as Record<PinT['_id'], PinT>
       )
-
-      state.dataState = 'success'
     },
     changeVisiblePins: (state, action: PayloadAction<RegionT>) => {
       const visiblePins: PinT['_id'][] = []
