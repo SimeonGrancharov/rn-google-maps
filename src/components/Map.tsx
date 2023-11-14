@@ -20,13 +20,13 @@ export const Map = () => {
   const pinsById = useReduxStore((state) => state.pins.pinsById)
   const mapRef = useRef<MapView | null>(null)
 
-  const changeVisiblePins = useCallback((region: RegionT) => {
-    dispatch(pinsSlice.actions.changeVisiblePins(region))
-  }, [])
-
   useEffect(() => {
     changeVisiblePins(initialRegion)
   }, [pinsById])
+
+  const changeVisiblePins = useCallback((region: RegionT) => {
+    dispatch(pinsSlice.actions.changeVisiblePins(region))
+  }, [])
 
   const zoomInOut = useCallback((direction: 'in' | 'out') => {
     mapRef.current?.getCamera().then((cam: Camera) => {
@@ -50,6 +50,7 @@ export const Map = () => {
         zoomEnabled
         zoomControlEnabled
         onRegionChange={changeVisiblePins}
+        pitchEnabled={false}
         ref={(r) => (mapRef.current = r)}
       >
         {pins.map((pin) => (
@@ -59,6 +60,9 @@ export const Map = () => {
             coordinate={{
               longitude: pin.longitude,
               latitude: pin.latitude,
+            }}
+            onPress={(e) => {
+              console.log(e.nativeEvent.id)
             }}
           />
         ))}
