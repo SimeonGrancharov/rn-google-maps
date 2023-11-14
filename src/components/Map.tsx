@@ -1,13 +1,11 @@
-import MapView, { Marker } from 'react-native-maps'
+import MapView, { Camera, Marker } from 'react-native-maps'
 import { useSelectVisiblePins } from '../hooks/useSelectVisiblePins'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useCallback, useEffect, useRef } from 'react'
 import { pinsSlice } from '../reducers/pins'
 import { RegionT } from '../types/Region'
 import { useReduxStore } from '../hooks/useReduxStore'
-import { TouchableOpacity, View, Text } from 'react-native'
-
-type PropsT = {}
+import { ZoomInOutButtons } from './ZoomInOutButtons'
 
 const initialRegion: RegionT = {
   latitude: -14.462632,
@@ -29,6 +27,16 @@ export const Map = () => {
   useEffect(() => {
     changeVisiblePins(initialRegion)
   }, [pinsById])
+
+  const zoomInOut = useCallback((direction: 'in' | 'out') => {
+    mapRef.current?.getCamera().then((cam: Camera) => {
+      if (cam.zoom) {
+        cam.zoom += 2 * (direction === 'in' ? 1 : -1)
+      }
+
+      mapRef.current?.animateCamera(cam)
+    })
+  }, [])
 
   return (
     <>
@@ -55,6 +63,7 @@ export const Map = () => {
           />
         ))}
       </MapView>
+      <ZoomInOutButtons onZoomPress={zoomInOut} />
     </>
   )
 }
