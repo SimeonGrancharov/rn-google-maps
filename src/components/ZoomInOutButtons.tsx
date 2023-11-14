@@ -17,16 +17,18 @@ export const ZoomInOutButtons = (props: PropsT) => {
   return (
     <View style={styles.mainContainer}>
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: 'blue' }]}
+        activeOpacity={0.8}
+        style={[styles.button, { marginRight: 10 }]}
         onPress={onZoomInPress}
       >
-        <Text>+</Text>
+        <Text>➕</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: 'red' }]}
+        activeOpacity={0.8}
+        style={[styles.button]}
         onPress={onZoomOutPress}
       >
-        <Text>-</Text>
+        <Text>➖</Text>
       </TouchableOpacity>
     </View>
   )
@@ -35,12 +37,18 @@ export const ZoomInOutButtons = (props: PropsT) => {
 const styles = StyleSheet.create({
   mainContainer: {
     position: 'absolute',
-    top: 50,
-    left: 50,
+    bottom: 40,
+    right: 35,
+    flexDirection: 'row',
   },
   button: {
-    width: 30,
-    height: 30,
-    backgroundColor: 'red',
+    width: 35,
+    height: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    backgroundColor: '#ede2e1',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: '#595857',
   },
 })
