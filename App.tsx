@@ -1,25 +1,32 @@
 import { StatusBar } from 'expo-status-bar'
+import { Map } from './src/components/Map'
 import { StyleSheet, View } from 'react-native'
-import MapView from 'react-native-maps'
+import { Provider } from 'react-redux'
+import { useEffect } from 'react'
+import { fetchPins } from './src/thunks/fetchPins'
+import { store } from './src/stores/store'
+import { useAppDispatch } from './src/hooks/useAppDispatch'
+
+const EntryApp = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchPins())
+  }, [])
+
+  return (
+    <View style={styles.container}>
+      <Map />
+      <StatusBar style="auto" />
+    </View>
+  )
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <MapView
-        provider="google"
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        initialRegion={{
-          latitude: 41.38333,
-          longitude: 22.68361,
-          latitudeDelta: 0.222,
-          longitudeDelta: 0.0421,
-        }}
-      />
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <EntryApp />
+    </Provider>
   )
 }
 
