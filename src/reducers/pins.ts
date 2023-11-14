@@ -1,6 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PinT } from '../types/Pin'
 import { fetchPins } from '../thunks/fetchPins'
+import { RegionT } from '../types/Region'
 
 type StateT = {
   dataState: 'success' | 'loading' | 'error' | undefined
@@ -17,7 +18,34 @@ const initialState: StateT = {
 export const pinsSlice = createSlice({
   name: 'pins',
   initialState,
-  reducers: {},
+  reducers: {
+    changeVisiblePins: (state, action: PayloadAction<RegionT>) => {
+      const visiblePins: PinT['_id'][] = []
+
+      const bottomLat =
+        action.payload.latitude - action.payload.latitudeDelta / 2
+      const topLat = action.payload.latitude + action.payload.latitudeDelta / 2
+      const leftLng =
+        action.payload.longitude - action.payload.longitudeDelta / 2
+      const rightLng =
+        action.payload.longitude + action.payload.longitudeDelta / 2
+
+      for (const pin of Object.values(state.pinsById)) {
+        if (
+          pin.longitude <= rightLng &&
+          pin.longitude >= leftLng &&
+          pin.latitude >= bottomLat &&
+          pin.latitude <= topLat
+        ) {
+          visiblePins.push(pin._id)
+        }
+      }
+
+      state.visiblePins = visiblePins
+
+      console.log('set visible pins', visiblePins)
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchPins.fulfilled, (state, action) => {
       if (!action.payload) {
