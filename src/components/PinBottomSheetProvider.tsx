@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { PinT } from '../types/Pin'
-import { Context, ContextT } from '../context/PinModalContext'
+import { Context, ContextT } from '../context/PinModal'
 import { Pressable, StyleSheet } from 'react-native'
 import { useReduxStore } from '../hooks/useReduxStore'
 import Animated, {

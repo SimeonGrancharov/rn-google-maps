@@ -17,11 +17,11 @@ const initialRegion: RegionT = {
 }
 
 export const Map = () => {
+  const mapRef = useRef<MapView | null>(null)
   const openPinInfo = useOpenPinInfo()
   const pins = useSelectVisiblePins()
   const dispatch = useAppDispatch()
   const pinsById = useReduxStore((state) => state.pins.pinsById)
-  const mapRef = useRef<MapView | null>(null)
 
   useEffect(() => {
     changeVisiblePins(initialRegion)
