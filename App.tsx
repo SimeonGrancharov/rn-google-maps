@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { fetchPins } from './src/thunks/fetchPins'
 import { store } from './src/stores/store'
 import { useAppDispatch } from './src/hooks/useAppDispatch'
+import { PinBottomSheetProvider } from './src/components/PinBottomSheetProvider'
 
 const EntryApp = () => {
   const dispatch = useAppDispatch()
@@ -25,7 +26,9 @@ const EntryApp = () => {
 export default function App() {
   return (
     <Provider store={store}>
-      <EntryApp />
+      <PinBottomSheetProvider>
+        <EntryApp />
+      </PinBottomSheetProvider>
     </Provider>
   )
 }
@@ -35,6 +38,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 })

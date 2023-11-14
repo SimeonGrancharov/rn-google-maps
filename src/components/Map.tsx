@@ -6,15 +6,17 @@ import { pinsSlice } from '../reducers/pins'
 import { RegionT } from '../types/Region'
 import { useReduxStore } from '../hooks/useReduxStore'
 import { ZoomInOutButtons } from './ZoomInOutButtons'
+import { useOpenPinInfo } from '../hooks/useOpenPinInfo'
 
 const initialRegion: RegionT = {
   latitude: -14.462632,
   longitude: 35.292339,
   latitudeDelta: 0.222,
-  longitudeDelta: 0.0421,
+  longitudeDelta: 0.0421
 }
 
 export const Map = () => {
+  const openPinInfo = useOpenPinInfo()
   const pins = useSelectVisiblePins()
   const dispatch = useAppDispatch()
   const pinsById = useReduxStore((state) => state.pins.pinsById)
@@ -44,7 +46,7 @@ export const Map = () => {
         provider="google"
         style={{
           width: '100%',
-          height: '100%',
+          height: '100%'
         }}
         initialRegion={initialRegion}
         zoomEnabled
@@ -59,10 +61,10 @@ export const Map = () => {
             key={pin._id}
             coordinate={{
               longitude: pin.longitude,
-              latitude: pin.latitude,
+              latitude: pin.latitude
             }}
-            onPress={(e) => {
-              console.log(e.nativeEvent.id)
+            onPress={() => {
+              openPinInfo(pin._id)
             }}
           />
         ))}
