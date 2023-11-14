@@ -5,6 +5,7 @@ import { getConnectorStatusColor } from '../utils/getStatusColor'
 import { ItemWithLabel } from './ItemWithLabel'
 import { getIconNameFromConnectorType } from '../utils/getIconNameFromConnectorType'
 import { Icon } from './Icon'
+import { formatCoordinates } from '../utils/formatCoordinates'
 
 type PropsT = {
   pin: PinT
@@ -39,7 +40,10 @@ export const PinModalContent = (props: PropsT) => {
             alignItems: 'center'
           }}
         >
-          <ItemWithLabel value={props.pin.latitude} label="latitude" />
+          <ItemWithLabel
+            value={formatCoordinates('latitude', props.pin.latitude)}
+            label="latitude"
+          />
         </View>
 
         <Separator type="horizontal" />
@@ -49,7 +53,10 @@ export const PinModalContent = (props: PropsT) => {
             alignItems: 'center'
           }}
         >
-          <ItemWithLabel value={props.pin.longitude} label="longitude" />
+          <ItemWithLabel
+            value={formatCoordinates('longitude', props.pin.longitude)}
+            label="longitude"
+          />
         </View>
       </View>
 
