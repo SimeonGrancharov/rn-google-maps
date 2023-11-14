@@ -3,7 +3,7 @@ import z from 'zod'
 const ConnectorSchema = z.object({
   type: z.union([
     z.literal('Type 2'),
-    z.literal(' Type 3'),
+    z.literal('Type 3'),
     z.literal('J1772'),
     z.literal('CCS 2')
   ]),

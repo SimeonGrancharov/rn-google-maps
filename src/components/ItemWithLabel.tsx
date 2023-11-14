@@ -16,8 +16,8 @@ export const ItemWithLabel = (props: PropsT) => {
     >
       <Text
         style={{
-          fontSize: 12,
-          fontWeight: '500',
+          fontSize: 15,
+          fontWeight: '600',
           lineHeight: 17,
           color: 'black'
         }}
@@ -26,10 +26,11 @@ export const ItemWithLabel = (props: PropsT) => {
       </Text>
       <Text
         style={{
-          fontSize: 15,
+          fontSize: 17,
           fontWeight: '300',
           lineHeight: 21,
-          color: props.valueColor ?? 'black'
+          color: props.valueColor ?? 'black',
+          marginTop: 5
         }}
       >
         {props.value}

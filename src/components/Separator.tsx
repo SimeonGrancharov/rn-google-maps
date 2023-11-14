@@ -15,7 +15,7 @@ export const Separator = (props: {
         width:
           props.width ??
           (props.type === 'vertical' ? '100%' : StyleSheet.hairlineWidth),
-        backgroundColor: props.backgroundColor ?? 'gray',
+        backgroundColor: props.backgroundColor ?? '#d9d7d7',
         marginTop: props.marginTop,
         marginBottom: props.marginBottom,
         marginRight: props.marginRight

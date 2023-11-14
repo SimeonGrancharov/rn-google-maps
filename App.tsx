@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { fetchPins } from './src/thunks/fetchPins'
 import { store } from './src/stores/store'
 import { useAppDispatch } from './src/hooks/useAppDispatch'
+import { useFonts } from 'expo-font'
 import { PinBottomSheetProvider } from './src/components/PinBottomSheetProvider'
 
 const EntryApp = () => {
@@ -24,6 +25,10 @@ const EntryApp = () => {
 }
 
 export default function App() {
+  useFonts({
+    fontello: require('./assets/fonts/fontello.ttf')
+  })
+
   return (
     <Provider store={store}>
       <PinBottomSheetProvider>

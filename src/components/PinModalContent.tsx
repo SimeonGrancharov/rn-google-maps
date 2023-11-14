@@ -3,6 +3,8 @@ import { PinT } from '../types/Pin'
 import { Separator } from './Separator'
 import { getConnectorStatusColor } from '../utils/getStatusColor'
 import { ItemWithLabel } from './ItemWithLabel'
+import { getIconNameFromConnectorType } from '../utils/getIconNameFromConnectorType'
+import { Icon } from './Icon'
 
 type PropsT = {
   pin: PinT
@@ -72,22 +74,28 @@ export const PinModalContent = (props: PropsT) => {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'flex-start',
-                marginBottom: 5
+                alignItems: 'center',
+                marginBottom: 10
               }}
             >
-              <Separator
-                type="horizontal"
-                width={3}
-                backgroundColor={getConnectorStatusColor(connector.status)}
-                marginRight={5}
+              <Icon
+                size={32}
+                name={getIconNameFromConnectorType(connector.type)}
+                color="#363636"
+                style={{
+                  marginRight: 20
+                }}
               />
-              <ItemWithLabel
-                key={idx}
-                value={connector.status}
-                label={connector.type}
-                valueColor={getConnectorStatusColor(connector.status)}
-                alignment="left"
-              />
+              <View style={{ flex: 1 }}>
+                <ItemWithLabel
+                  key={idx}
+                  value={connector.status}
+                  label={connector.type}
+                  valueColor={getConnectorStatusColor(connector.status)}
+                  alignment="left"
+                />
+                <Separator type="vertical" marginTop={10} />
+              </View>
             </View>
           ))}
         </View>
