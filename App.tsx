@@ -9,31 +9,28 @@ import { useFonts } from 'expo-font'
 import { PinBottomSheetProvider } from './src/components/PinBottomSheetProvider'
 import { useReduxStore } from './src/hooks/useReduxStore'
 import { pinsSlice } from './src/reducers/pins'
-import { PinT } from './src/types/Pin'
+import { fetchPins } from './src/services/pins'
 
 const EntryApp = () => {
   const dispatch = useAppDispatch()
   const pinsById = useReduxStore((state) => state.pins.pinsById)
 
-  const fetchPins = async () => {
+  const fetchInitialPins = async () => {
+    if (Object.values(pinsById).length > 0) {
+      return
+    }
+
     try {
-      const data = await fetch('http://localhost:3000/pins', {
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      const pins = (await data.json()) as PinT[]
+      const pins = await fetchPins()
 
       dispatch(pinsSlice.actions.setPins(pins))
-    } catch (e) {
-      console.log(e)
+    } catch (err) {
+      console.log('Errored while fetching pins', err)
     }
   }
 
   useEffect(() => {
-    if (Object.values(pinsById).length === 0) {
-      fetchPins()
-    }
+    fetchInitialPins()
   }, [])
 
   return (

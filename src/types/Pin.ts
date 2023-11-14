@@ -10,7 +10,7 @@ const ConnectorSchema = z.object({
   status: z.union([z.literal('available'), z.literal('unavailable')])
 })
 
-const PinSchema = z.object({
+export const PinSchema = z.object({
   _id: z.string(),
   title: z.string(),
   latitude: z.number(),
