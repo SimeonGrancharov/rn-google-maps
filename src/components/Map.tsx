@@ -37,7 +37,7 @@ export const Map = () => {
   const zoomInOut = useCallback((direction: 'in' | 'out') => {
     mapRef.current?.getCamera().then((cam: Camera) => {
       if (cam.zoom) {
-        cam.zoom += 2 * (direction === 'in' ? 1 : -1)
+        cam.zoom += Math.log10(cam.zoom) * (direction === 'in' ? 1 : -1)
       }
 
       mapRef.current?.animateCamera(cam)
