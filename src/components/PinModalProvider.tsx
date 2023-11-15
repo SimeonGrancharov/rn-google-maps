@@ -17,7 +17,7 @@ type PropsT = {
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
-export const PinBottomSheetProvider = (props: PropsT) => {
+export const PinModalProvider = (props: PropsT) => {
   const [openedModalId, setOpenedModalId] = useState<PinT['_id'] | undefined>(
     undefined
   )

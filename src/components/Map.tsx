@@ -43,7 +43,6 @@ export const Map = (props: PropsT) => {
   }, [])
 
   useEffect(() => {
-    console.log('props.region >>>>>>>> ', props.region)
     mapRef.current?.animateToRegion(props.region, 1000)
   }, [props.region])
 

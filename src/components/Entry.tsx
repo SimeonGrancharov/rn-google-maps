@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { Map } from './Map'
-import { SafeAreaView, View } from 'react-native'
+import { View } from 'react-native'
 import { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useReduxStore } from '../hooks/useReduxStore'

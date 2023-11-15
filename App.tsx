@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux'
 import { store } from './src/stores/store'
 import { useFonts } from 'expo-font'
-import { PinBottomSheetProvider } from './src/components/PinBottomSheetProvider'
+import { PinModalProvider } from './src/components/PinModalProvider'
 import { EntryApp } from './src/components/Entry'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
@@ -13,9 +13,9 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <Provider store={store}>
-        <PinBottomSheetProvider>
+        <PinModalProvider>
           <EntryApp />
-        </PinBottomSheetProvider>
+        </PinModalProvider>
       </Provider>
     </SafeAreaProvider>
   )
