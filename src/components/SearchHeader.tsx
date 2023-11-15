@@ -69,7 +69,6 @@ export const SearchHeader = (props: PropsT) => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    overflow: 'visible',
     backgroundColor: 'white',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: 'black',
