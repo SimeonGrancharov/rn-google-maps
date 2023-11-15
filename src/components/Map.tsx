@@ -2,6 +2,7 @@ import MapView, { Camera, Marker } from 'react-native-maps'
 import { useSelectVisiblePins } from '../hooks/useSelectVisiblePins'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useCallback, useEffect, useRef } from 'react'
+import { StyleSheet } from 'react-native'
 import { pinsSlice } from '../reducers/pins'
 import { RegionT } from '../types/Region'
 import { useReduxStore } from '../hooks/useReduxStore'
@@ -9,14 +10,11 @@ import { ZoomInOutButtons } from './ZoomInOutButtons'
 import { throttle } from 'lodash'
 import { useOpenPinInfo } from '../hooks/useOpenPinInfo'
 
-const initialRegion: RegionT = {
-  latitude: -14.462632,
-  longitude: 35.292339,
-  latitudeDelta: 0.222,
-  longitudeDelta: 0.0421
+type PropsT = {
+  region: RegionT
 }
 
-export const Map = () => {
+export const Map = (props: PropsT) => {
   const mapRef = useRef<MapView | null>(null)
   const openPinInfo = useOpenPinInfo()
   const pins = useSelectVisiblePins()
@@ -24,8 +22,8 @@ export const Map = () => {
   const pinsById = useReduxStore((state) => state.pins.pinsById)
 
   useEffect(() => {
-    changeVisiblePins(initialRegion)
-  }, [pinsById])
+    changeVisiblePins(props.region)
+  }, [pinsById, props.region])
 
   const changeVisiblePins = useCallback(
     throttle((region: RegionT) => {
@@ -48,11 +46,8 @@ export const Map = () => {
     <>
       <MapView
         provider="google"
-        style={{
-          width: '100%',
-          height: '100%'
-        }}
-        initialRegion={initialRegion}
+        style={styles.mapContainer}
+        region={props.region}
         zoomEnabled={false}
         zoomControlEnabled={false}
         onRegionChange={changeVisiblePins}
@@ -77,3 +72,10 @@ export const Map = () => {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  mapContainer: {
+    width: '100%',
+    height: '100%'
+  }
+})
