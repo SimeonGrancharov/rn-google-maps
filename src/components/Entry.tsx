@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar'
 import { Map } from './Map'
-import { View } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import { useEffect, useMemo, useState } from 'react'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useReduxStore } from '../hooks/useReduxStore'
@@ -8,6 +8,7 @@ import { pinsSlice } from '../reducers/pins'
 import { fetchPins } from '../services/pins'
 import * as Location from 'expo-location'
 import { RegionT } from '../types/Region'
+import { SearchHeader } from './SearchHeader'
 
 export const EntryApp = () => {
   const [location, setLocation] = useState<
@@ -75,6 +76,7 @@ export const EntryApp = () => {
 
   return (
     <View>
+      <SearchHeader onSearchResultPress={setLocation} />
       <Map region={region} />
       <StatusBar style="auto" />
     </View>

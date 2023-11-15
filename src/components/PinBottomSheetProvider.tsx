@@ -25,9 +25,6 @@ export const PinBottomSheetProvider = (props: PropsT) => {
   const pin = useReduxStore((state) =>
     openedModalId ? state.pins.pinsById[openedModalId] : undefined
   )
-  useEffect(() => {
-    console.log('unmount')
-  }, [])
 
   const contextValue = useMemo<ContextT>(
     () => ({

@@ -2,7 +2,7 @@ import MapView, { Camera, Marker } from 'react-native-maps'
 import { useSelectVisiblePins } from '../hooks/useSelectVisiblePins'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useCallback, useEffect, useRef } from 'react'
-import { StyleSheet } from 'react-native'
+import { Keyboard, StyleSheet } from 'react-native'
 import { pinsSlice } from '../reducers/pins'
 import { RegionT } from '../types/Region'
 import { useReduxStore } from '../hooks/useReduxStore'
@@ -42,15 +42,21 @@ export const Map = (props: PropsT) => {
     })
   }, [])
 
+  useEffect(() => {
+    console.log('props.region >>>>>>>> ', props.region)
+    mapRef.current?.animateToRegion(props.region, 1000)
+  }, [props.region])
+
   return (
     <>
       <MapView
         provider="google"
         style={styles.mapContainer}
-        region={props.region}
+        initialRegion={props.region}
         zoomEnabled={false}
         zoomControlEnabled={false}
         onRegionChange={changeVisiblePins}
+        onPanDrag={Keyboard.dismiss}
         pitchEnabled={false}
         ref={(r) => (mapRef.current = r)}
       >

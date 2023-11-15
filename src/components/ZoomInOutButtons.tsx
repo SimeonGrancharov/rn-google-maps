@@ -1,11 +1,14 @@
 import { useCallback } from 'react'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { HeaderHeight } from '../constants/header'
 
 type PropsT = {
   onZoomPress: (direction: 'in' | 'out') => void
 }
 
 export const ZoomInOutButtons = (props: PropsT) => {
+  const insets = useSafeAreaInsets()
   const onZoomInPress = useCallback(() => {
     props.onZoomPress('in')
   }, [props.onZoomPress])
@@ -15,7 +18,15 @@ export const ZoomInOutButtons = (props: PropsT) => {
   }, [props.onZoomPress])
 
   return (
-    <View style={styles.mainContainer}>
+    <View
+      style={[
+        styles.mainContainer,
+        {
+          bottom: insets.top + insets.bottom + HeaderHeight,
+          marginBottom: 10
+        }
+      ]}
+    >
       <TouchableOpacity
         activeOpacity={0.8}
         style={[styles.button, { marginRight: 10 }]}
@@ -37,9 +48,8 @@ export const ZoomInOutButtons = (props: PropsT) => {
 const styles = StyleSheet.create({
   mainContainer: {
     position: 'absolute',
-    bottom: 40,
     right: 35,
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   button: {
     width: 35,
@@ -49,6 +59,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#ede2e1',
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#595857',
-  },
+    borderColor: '#595857'
+  }
 })
