@@ -62,9 +62,7 @@ const styles = StyleSheet.create({
     zIndex: 52,
     paddingHorizontal: 15,
     borderBottomRightRadius: 12,
-    borderBottomLeftRadius: 12,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'gray'
+    borderBottomLeftRadius: 12
   },
   resultTitle: {
     fontSize: 15,

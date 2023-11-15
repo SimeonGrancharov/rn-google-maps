@@ -47,6 +47,7 @@ export const SearchHeader = (props: PropsT) => {
           style={styles.inputContainer}
           placeholder="Type To Search"
           onChangeText={setSearchText}
+          maxLength={50}
           onFocus={() => {
             if (resultsHidden) {
               setResultsHidden(false)
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 40,
-    backgroundColor: '#d9d7d7',
+    backgroundColor: '#EEEEEE',
     borderRadius: 12,
     paddingHorizontal: 15
   }
