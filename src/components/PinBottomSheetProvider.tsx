@@ -50,12 +50,13 @@ export const PinBottomSheetProvider = (props: PropsT) => {
             onPress={() => setOpenedModalId(undefined)}
             style={{
               ...StyleSheet.absoluteFillObject,
-              backgroundColor: 'rgba(0,0,0,0.5)'
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              zIndex: 49
             }}
           />
           <Animated.View
             entering={SlideInDown}
-            exiting={SlideOutDown.duration(2000)}
+            exiting={SlideOutDown}
             style={styles.bottomSheet}
           >
             <PinModalContent pin={pin} />
@@ -70,6 +71,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
+    zIndex: 50,
     backgroundColor: 'white',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
