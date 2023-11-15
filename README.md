@@ -33,3 +33,9 @@ npm run android
 ```
 
 This will automatically install the Expo Go app on the desired simulator and attach the app to the Metro bundler.
+
+You can run tests by executing
+
+```
+npm run test
+```

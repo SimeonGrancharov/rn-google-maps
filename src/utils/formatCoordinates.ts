@@ -36,7 +36,7 @@ export function formatCoordinates(
 
   const secs = (mins - Math.trunc(mins)) * 60
 
-  result += `${Math.trunc(secs).toString().padStart(2, '0')}''`
+  result += `${Math.trunc(secs).toString().padStart(2, '0')}"`
 
   return result
 }

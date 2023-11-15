@@ -16,9 +16,5 @@ export function getIconNameFromConnectorType(
     case 'CCS 2': {
       return 'ccs2'
     }
-
-    default: {
-      throw new Error('Unrecognized type')
-    }
   }
 }
