@@ -32,21 +32,23 @@ export const EntryApp = () => {
     }
   }
 
+  const getLocation = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync()
+
+    if (status !== 'granted') {
+      return
+    }
+
+    const location = await Location.getCurrentPositionAsync({})
+
+    setLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude
+    })
+  }
+
   useEffect(() => {
-    ;(async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync()
-
-      if (status !== 'granted') {
-        return
-      }
-
-      let location = await Location.getCurrentPositionAsync({})
-
-      setLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude
-      })
-    })()
+    getLocation()
   }, [])
 
   useEffect(() => {
